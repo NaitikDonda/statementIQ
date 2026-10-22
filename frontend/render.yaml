@@ -4,7 +4,7 @@ services:
     plan: free
     env: node
     buildCommand: npm install && npm run build
-    startCommand: npm install -g serve && serve -s dist -l $PORT
+    startCommand: npx serve -s dist -l $PORT
     envVars:
       - key: VITE_API_URL
         sync: false
