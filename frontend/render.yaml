@@ -1,9 +1,9 @@
 services:
   - type: web
     name: statementiq-frontend
-    runtime: static
+    env: static
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
         sync: false
