@@ -29,9 +29,10 @@ MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "100")) * 1024 * 1024
 app = FastAPI(title="StatementIQ API", version="1.0.0")
 
 # Add CORS middleware
+# In production, replace "*" with your Render frontend URL (e.g., "https://statementiq-frontend.onrender.com")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify your Vercel domain
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

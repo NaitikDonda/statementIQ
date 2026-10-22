@@ -73,15 +73,6 @@ the configured language and embedding models available.
 
 ## Deployment
 
-### Frontend (Vercel)
-
-The frontend is configured for Vercel deployment:
-
-1. Connect your GitHub repository to Vercel
-2. Import the `frontend/` directory as a Vercel project
-3. Set the environment variable `VITE_API_URL` to your deployed backend URL
-4. Deploy
-
 ### Backend (Render)
 
 The backend is configured for Render deployment:
@@ -91,6 +82,29 @@ The backend is configured for Render deployment:
 3. Use the existing `render.yaml` configuration
 4. Set the required environment variables (especially `OLLAMA_BASE_URL`)
 5. Deploy
+6. Note the backend URL (e.g., `https://statementiq-backend.onrender.com`)
+
+### Frontend (Render)
+
+The frontend is configured for Render static site deployment:
+
+1. Connect your GitHub repository to Render
+2. Create a new web service from the `frontend/` directory
+3. Use the existing `render.yaml` configuration
+4. Set the environment variable `VITE_API_URL` to your backend URL from step 6 above
+5. Deploy
+6. Note the frontend URL (e.g., `https://statementiq-frontend.onrender.com`)
+
+### Post-Deployment
+
+After both services are deployed, update the backend CORS settings:
+
+1. In `backend/app.py`, change `allow_origins=["*"]` to your frontend URL:
+   ```python
+   allow_origins=["https://statementiq-frontend.onrender.com"]
+   ```
+2. Commit and push the change
+3. Render will automatically redeploy the backend
 
 ## Environment Variables
 
