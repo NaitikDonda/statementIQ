@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: statementiq-backend
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    disk:
+      name: statementiq-data
+      mountPath: /var/data
+      sizeGB: 10
+    envVars:
+      - key: DATABASE_PATH
+        value: /var/data/statementiq.sqlite3
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+      - key: LEGACY_INDEX_PATH
+        value: outputs/pdf_chunks_embeddings.csv
+      - key: MAX_UPLOAD_MB
+        value: "100"
+      - key: OLLAMA_BASE_URL
+        sync: false
+      - key: LLM_MODEL
+        value: gemma4:e4b
+      - key: EMBED_MODEL
+        value: nomic-embed-text
